@@ -9,9 +9,6 @@ Pre-requiests:
 *redhat 8
 *SELINUX disabled
 *Firewall Disabled
-
-System requirements:
-
 *Java 8(either JRE or JDK)
 *256MB free memory
 *1GB plus free disk sapce
@@ -80,20 +77,19 @@ ENV name devops murali
 
 :wq
 
-5.create job for customize image in jenkins
+4.create job for customize image in jenkins
 
-click create job >> in source code management select git and govegive GITHUB url  >> in BUILD select excecute shell and type below texts
+click create job >> in source code management select git and give GITHUB url  >> in BUILD select excecute shell and type below texts
 
 sudo cd /var/lib/jenkins/workspace/GITHUB-JOB
 sudo docker build . -t myimg
-sudo docker run -dit myimg
+sudo docker run -dit-p 82:80 myimg
 
-6.check in the server using below commands:
+5.check in the server using below commands:
 
 *docker ps 
 *docker images
 
-my githuburl: https://github.com/Muralidharan-lab/my-first-project.git
 
 
 
@@ -123,4 +119,4 @@ my githuburl: https://github.com/Muralidharan-lab/my-first-project.git
 
 
 
-5.Using jenkins job to create our customize image from dockerfile
+
