@@ -1,0 +1,126 @@
+
+						Create cusomize image use docker file with the help of jenkins and github
+
+
+1.install jenkins on Redhat linux 8.0
+
+Pre-requiests:
+
+*redhat 8
+*SELINUX disabled
+*Firewall Disabled
+
+System requirements:
+
+*Java 8(either JRE or JDK)
+*256MB free memory
+*1GB plus free disk sapce
+
+steps:
+
+yum install java -y
+
+java -version
+
+sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
+
+sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.key
+
+yum install jenkins -y
+
+systemctl start jenkins
+
+Check port no:
+
+ps -ef | grep java
+
+netstat -lntp | grep java
+
+vim /etc/sysconfig/jenkins
+
+login jenkings though web:
+
+localip:jenkinsportnumber ex:192.168.1.105:8080
+
+
+2.install docker in redhat linux
+
+curl -sSL https://get.docker.com | sh (it will work for only centos/ubuntu)
+
+in redhat 8 we need to create the repo
+
+vim /etc/yum.repos.d/docker.repo
+[docker]
+baseurl= https://download.docker.com/linux/centos/7/*86_64/stable/
+gpgcheck=0
+:wq
+
+yum install -y docker-ce  --nobest
+
+systemctl start docker
+
+
+3.create docker file
+
+cd /var/lib/jenkins/workspace/GITHUB-JOB
+
+Vim Dockerfile
+
+FROM ubuntu
+
+RUN apt-get update
+
+RUN apt-get install apache2
+
+ADD . /var/www/html
+
+ENTRYPOINT apachectl -D FOREGROUND
+
+ENV name devops murali
+
+:wq
+
+5.create job for customize image in jenkins
+
+click create job >> in source code management select git and govegive GITHUB url  >> in BUILD select excecute shell and type below texts
+
+sudo cd /var/lib/jenkins/workspace/GITHUB-JOB
+sudo docker build . -t myimg
+sudo docker run -dit myimg
+
+6.check in the server using below commands:
+
+*docker ps 
+*docker images
+
+my githuburl: https://github.com/Muralidharan-lab/my-first-project.git
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+5.Using jenkins job to create our customize image from dockerfile
