@@ -1,7 +1,7 @@
 
 						Create cusomize image use docker file with the help of jenkins and github
 
-Sini Niroshan murali murugesh
+Sini Niroshan
 1.install jenkins on Redhat linux 8.0
 
 Pre-requiests:
